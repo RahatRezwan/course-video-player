@@ -5,6 +5,7 @@ import { HiVolumeUp } from "react-icons/hi";
 import { MdPictureInPictureAlt } from "react-icons/md";
 import { VideoDataContext } from "../../../Contexts/VideoDataProvider/VideoDataProvider";
 import ControlButton from "../ControlButton/ControlButton";
+import { formatMinutes } from "../formatMinutes";
 
 const iconClass = "w-full h-full text-white hover:text-blue-500";
 
@@ -73,7 +74,9 @@ const VideoWrapper = ({ videoRef }) => {
                </ControlButton>
                <input type="range" className="w-[30%]" />
                <div className="video-timer">
-                  <p className="text-white">00:00/00:00</p>
+                  <p className="text-white">
+                     {formatMinutes(currentTime)}/{formatMinutes(videoLength)}
+                  </p>
                </div>
             </li>
             <li className="options-center w-[50%] flex justify-center">
