@@ -1,9 +1,12 @@
-import { RouterProvider } from "react-router-dom";
 import "./App.css";
-import { router } from "./Routes/Router";
+import Course from "./components/Course/Course";
 
 function App() {
-   return <RouterProvider router={router} />;
+   return (
+      <div>
+         <Course />
+      </div>
+   );
 }
 
 export default App;

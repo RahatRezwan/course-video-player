@@ -12,7 +12,9 @@ const VideoPlayer = () => {
       videoLength,
       setComplete,
       muted,
+      currentVideo,
    } = useContext(VideoDataContext);
+   const { video_url, thumbnail } = currentVideo;
 
    const videoRef = useRef(null);
 
@@ -42,7 +44,8 @@ const VideoPlayer = () => {
             ref={videoRef}
             muted={muted}
             className="w-full"
-            src="https://www.w3schools.com/tags/mov_bbb.mp4"
+            src={video_url}
+            poster={thumbnail}
             onPlay={() => setIsPlaying(true)}
             onPause={() => setIsPlaying(false)}
             onDurationChange={() => setVideoLength(videoRef.current.duration)}

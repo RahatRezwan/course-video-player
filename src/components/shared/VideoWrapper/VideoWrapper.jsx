@@ -22,7 +22,10 @@ const VideoWrapper = ({ videoRef }) => {
       isPlaying,
       muted,
       setMuted,
+      currentVideo,
    } = useContext(VideoDataContext);
+
+   const { watermark, id } = currentVideo;
 
    const handlePlayPause = () => {
       // Increment the total play/pause clicks counter
@@ -67,6 +70,9 @@ const VideoWrapper = ({ videoRef }) => {
 
    return (
       <div className="wrapper p-3 absolute left-0 right-0 bottom-0 z-10 before:w-full before:content-none before:bottom-0 before:z-[-1] before:absolute before:bg-black before:h-100%]">
+         <div className="watermark flex justify-end">
+            <img src={watermark} alt="" className="w-[70px]" />
+         </div>
          <div className="video-timeline">
             <div className="progress-area">
                <div className="progress-bar">

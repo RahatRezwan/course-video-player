@@ -3,6 +3,7 @@ import React, { createContext, useState } from "react";
 export const VideoDataContext = createContext();
 
 const VideoDataProvider = ({ children }) => {
+   const [currentVideo, setCurrentVideo] = useState({});
    const [videoLength, setVideoLength] = useState(0);
    const [currentTime, setCurrentTime] = useState(0);
    const [totalWatchTime, setTotalWatchTime] = useState(0);
@@ -13,6 +14,8 @@ const VideoDataProvider = ({ children }) => {
    const [complete, setComplete] = useState(false);
 
    const data = {
+      currentVideo,
+      setCurrentVideo,
       videoLength,
       setVideoLength,
       currentTime,
