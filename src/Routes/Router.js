@@ -1,9 +1,16 @@
 import { createBrowserRouter } from "react-router-dom";
-import CourseDetails from "../components/CourseDetails/CourseDetails";
+import Course from "../components/Course/Course";
+import VideoPlayer from "../components/VideoPlayer/VideoPlayer";
 
 export const router = createBrowserRouter([
    {
       path: "/",
-      element: <CourseDetails />,
+      element: <Course />,
+      children: [
+         {
+            path: "/course/:id",
+            element: <VideoPlayer />,
+         },
+      ],
    },
 ]);
