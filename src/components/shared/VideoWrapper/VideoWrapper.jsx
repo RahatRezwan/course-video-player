@@ -25,7 +25,7 @@ const VideoWrapper = ({ videoRef }) => {
       currentVideo,
    } = useContext(VideoDataContext);
 
-   const { watermark, id } = currentVideo;
+   const { watermark } = currentVideo;
 
    const handlePlayPause = () => {
       // Increment the total play/pause clicks counter
@@ -71,73 +71,75 @@ const VideoWrapper = ({ videoRef }) => {
    return (
       <div className="wrapper p-3 absolute left-0 right-0 bottom-0 z-10 before:w-full before:content-none before:bottom-0 before:z-[-1] before:absolute before:bg-black before:h-100%]">
          <div className="watermark flex justify-end">
-            <img src={watermark} alt="" className="w-[70px]" />
+            <img src={watermark} alt="" className="w-[80px]" />
          </div>
-         <div className="video-timeline">
-            <div className="progress-area">
-               <div className="progress-bar">
-                  <input
-                     type="range"
-                     min={0}
-                     max={videoLength}
-                     value={currentTime}
-                     step="any"
-                     onChange={handleTimelineChange}
-                     className="w-full"
-                  />
+         <div>
+            <div className="video-timeline">
+               <div className="progress-area">
+                  <div className="progress-bar">
+                     <input
+                        type="range"
+                        min={0}
+                        max={videoLength}
+                        value={currentTime}
+                        step="any"
+                        onChange={handleTimelineChange}
+                        className="w-full"
+                     />
+                  </div>
                </div>
             </div>
-         </div>
-         <ul className="video-controls flex items-center justify-between w-full">
-            <li className="options-left w-[25%] flex items-center justify-start gap-2">
-               <ControlButton handleFunction={() => setMuted(!muted)}>
-                  {muted ? (
-                     <HiVolumeOff className={iconClass} />
-                  ) : (
-                     <HiVolumeUp className={iconClass} />
-                  )}
-               </ControlButton>
-               <input
-                  type="range"
-                  min={0.0}
-                  max={1}
-                  defaultValue={0.4}
-                  step="any"
-                  onChange={handleVolumeChange}
-                  className="w-[40%] hidden md:block"
-               />
-               <div className="video-timer">
-                  <p className="text-white">
-                     {formatMinutes(currentTime)}/{formatMinutes(videoLength)}
-                  </p>
-               </div>
-            </li>
-            <li className="options-center w-[50%] flex justify-center">
-               <div className="flex items-center gap-4">
-                  <ControlButton handleFunction={handleBackward}>
-                     <FaBackward className={iconClass} />
-                  </ControlButton>
-                  <ControlButton handleFunction={handlePlayPause}>
-                     {isPlaying ? (
-                        <FaPause className={iconClass} />
+            <ul className="video-controls flex items-center justify-between w-full">
+               <li className="options-left w-[25%] flex items-center justify-start gap-2">
+                  <ControlButton handleFunction={() => setMuted(!muted)}>
+                     {muted ? (
+                        <HiVolumeOff className={iconClass} />
                      ) : (
-                        <FaPlay className={iconClass} />
+                        <HiVolumeUp className={iconClass} />
                      )}
                   </ControlButton>
-                  <ControlButton handleFunction={handleForward}>
-                     <FaForward className={iconClass} />
+                  <input
+                     type="range"
+                     min={0.0}
+                     max={1}
+                     defaultValue={0.4}
+                     step="any"
+                     onChange={handleVolumeChange}
+                     className="w-[40%] hidden md:block"
+                  />
+                  <div className="video-timer">
+                     <p className="text-white">
+                        {formatMinutes(currentTime)}/{formatMinutes(videoLength)}
+                     </p>
+                  </div>
+               </li>
+               <li className="options-center w-[50%] flex justify-center">
+                  <div className="flex items-center gap-4">
+                     <ControlButton handleFunction={handleBackward}>
+                        <FaBackward className={iconClass} />
+                     </ControlButton>
+                     <ControlButton handleFunction={handlePlayPause}>
+                        {isPlaying ? (
+                           <FaPause className={iconClass} />
+                        ) : (
+                           <FaPlay className={iconClass} />
+                        )}
+                     </ControlButton>
+                     <ControlButton handleFunction={handleForward}>
+                        <FaForward className={iconClass} />
+                     </ControlButton>
+                  </div>
+               </li>
+               <li className="options-right w-[25%] flex justify-end gap-2">
+                  <ControlButton handleFunction={() => videoRef.current.requestPictureInPicture()}>
+                     <MdPictureInPictureAlt className={iconClass} />
                   </ControlButton>
-               </div>
-            </li>
-            <li className="options-right w-[25%] flex justify-end gap-2">
-               <ControlButton handleFunction={() => videoRef.current.requestPictureInPicture()}>
-                  <MdPictureInPictureAlt className={iconClass} />
-               </ControlButton>
-               <ControlButton handleFunction={handlePlayPause}>
-                  <BiFullscreen className={iconClass} />
-               </ControlButton>
-            </li>
-         </ul>
+                  <ControlButton handleFunction={handlePlayPause}>
+                     <BiFullscreen className={iconClass} />
+                  </ControlButton>
+               </li>
+            </ul>
+         </div>
       </div>
    );
 };
