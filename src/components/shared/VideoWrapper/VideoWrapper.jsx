@@ -50,6 +50,15 @@ const VideoWrapper = ({ videoRef }) => {
       videoRef.current.currentTime = event.target.value;
    };
 
+   const handleBackward = () => {
+      const updatedTime = currentTime - 5;
+      videoRef.current.currentTime = updatedTime;
+   };
+   const handleForward = () => {
+      const updatedTime = currentTime + 5;
+      videoRef.current.currentTime = updatedTime;
+   };
+
    return (
       <div className="wrapper p-3 absolute left-0 right-0 bottom-0 z-10 before:w-full before:content-none before:bottom-0 before:z-[-1] before:absolute before:bg-black before:h-100%]">
          <div className="video-timeline">
@@ -81,7 +90,7 @@ const VideoWrapper = ({ videoRef }) => {
             </li>
             <li className="options-center w-[50%] flex justify-center">
                <div className="flex items-center gap-4">
-                  <ControlButton handleFunction={handlePlayPause}>
+                  <ControlButton handleFunction={handleBackward}>
                      <FaBackward className={iconClass} />
                   </ControlButton>
                   <ControlButton handleFunction={handlePlayPause}>
@@ -91,7 +100,7 @@ const VideoWrapper = ({ videoRef }) => {
                         <FaPlay className={iconClass} />
                      )}
                   </ControlButton>
-                  <ControlButton handleFunction={handlePlayPause}>
+                  <ControlButton handleFunction={handleForward}>
                      <FaForward className={iconClass} />
                   </ControlButton>
                </div>

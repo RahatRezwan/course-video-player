@@ -1,18 +1,10 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import { VideoDataContext } from "../../Contexts/VideoDataProvider/VideoDataProvider";
 import VideoWrapper from "../shared/VideoWrapper/VideoWrapper";
 
 const VideoPlayer = () => {
-   const {
-      isPlaying,
-      setIsPlaying,
-      videoLength,
-      setVideoLength,
-      totalWatchTime,
-      setTotalWatchTime,
-      currentTime,
-      setCurrentTime,
-   } = useContext(VideoDataContext);
+   const { setIsPlaying, setVideoLength, setTotalWatchTime, setCurrentTime } =
+      useContext(VideoDataContext);
 
    const videoRef = useRef(null);
 
