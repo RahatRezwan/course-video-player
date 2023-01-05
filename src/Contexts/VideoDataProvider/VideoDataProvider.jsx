@@ -1,6 +1,6 @@
 import React, { createContext, useState } from "react";
 
-const VideoDataContext = createContext();
+export const VideoDataContext = createContext();
 
 const VideoDataProvider = ({ children }) => {
    const [videoLength, setVideoLength] = useState(0);
@@ -25,7 +25,7 @@ const VideoDataProvider = ({ children }) => {
       setIsPlaying,
    };
 
-   return <VideoDataContext.Provider value={data}></VideoDataContext.Provider>;
+   return <VideoDataContext.Provider value={data}>{children}</VideoDataContext.Provider>;
 };
 
 export default VideoDataProvider;
