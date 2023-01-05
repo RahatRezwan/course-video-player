@@ -9,6 +9,8 @@ const VideoDataProvider = ({ children }) => {
    const [totalPlayPauseClicks, setTotalPlayPauseClicks] = useState(0);
    const [playPauseHistory, setPlayPauseHistory] = useState([]);
    const [isPlaying, setIsPlaying] = useState(false);
+   const [muted, setMuted] = useState(false);
+   const [complete, setComplete] = useState(false);
 
    const data = {
       videoLength,
@@ -23,6 +25,10 @@ const VideoDataProvider = ({ children }) => {
       playPauseHistory,
       isPlaying,
       setIsPlaying,
+      muted,
+      setMuted,
+      complete,
+      setComplete,
    };
 
    return <VideoDataContext.Provider value={data}>{children}</VideoDataContext.Provider>;

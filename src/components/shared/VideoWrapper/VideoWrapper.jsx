@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { BiFullscreen } from "react-icons/bi";
 import { FaBackward, FaForward, FaPause, FaPlay } from "react-icons/fa";
-import { HiVolumeUp } from "react-icons/hi";
+import { HiVolumeUp, HiVolumeOff } from "react-icons/hi";
 import { MdPictureInPictureAlt } from "react-icons/md";
 import { VideoDataContext } from "../../../Contexts/VideoDataProvider/VideoDataProvider";
 import ControlButton from "../ControlButton/ControlButton";
@@ -20,6 +20,8 @@ const VideoWrapper = ({ videoRef }) => {
       setCurrentTime,
       setIsPlaying,
       isPlaying,
+      muted,
+      setMuted,
    } = useContext(VideoDataContext);
 
    const handlePlayPause = () => {
@@ -43,6 +45,10 @@ const VideoWrapper = ({ videoRef }) => {
          setIsPlaying(!isPlaying);
          videoRef.current.pause();
       }
+   };
+
+   const handleVolumeChange = (event) => {
+      videoRef.current.volume = event.target.value;
    };
 
    const handleTimelineChange = (event) => {
@@ -78,10 +84,22 @@ const VideoWrapper = ({ videoRef }) => {
          </div>
          <ul className="video-controls flex items-center justify-between w-full">
             <li className="options-left w-[25%] flex items-center justify-start gap-2">
-               <ControlButton handleFunction={handlePlayPause}>
-                  <HiVolumeUp className={iconClass} />
+               <ControlButton handleFunction={() => setMuted(!muted)}>
+                  {muted ? (
+                     <HiVolumeOff className={iconClass} />
+                  ) : (
+                     <HiVolumeUp className={iconClass} />
+                  )}
                </ControlButton>
-               <input type="range" className="w-[30%]" />
+               <input
+                  type="range"
+                  min={0.0}
+                  max={1}
+                  defaultValue={0.4}
+                  step="any"
+                  onChange={handleVolumeChange}
+                  className="w-[40%] hidden md:block"
+               />
                <div className="video-timer">
                   <p className="text-white">
                      {formatMinutes(currentTime)}/{formatMinutes(videoLength)}
@@ -106,7 +124,7 @@ const VideoWrapper = ({ videoRef }) => {
                </div>
             </li>
             <li className="options-right w-[25%] flex justify-end gap-2">
-               <ControlButton handleFunction={handlePlayPause}>
+               <ControlButton handleFunction={() => videoRef.current.requestPictureInPicture()}>
                   <MdPictureInPictureAlt className={iconClass} />
                </ControlButton>
                <ControlButton handleFunction={handlePlayPause}>
