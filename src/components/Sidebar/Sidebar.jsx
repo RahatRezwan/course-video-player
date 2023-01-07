@@ -1,6 +1,5 @@
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
-import { FaCheckCircle } from "react-icons/fa";
 import { VideoDataContext } from "../../Contexts/VideoDataProvider/VideoDataProvider";
 import { getStoredData } from "../../dataStore/dataStore";
 import DataCard from "../shared/DataCard/DataCard";
@@ -57,19 +56,19 @@ const Sidebar = () => {
                      <img src={data.thumbnail} alt="" className="h-[60px] w-[100px]" />
                      <h3 className="text-xl">{data.title}</h3>
                   </div>
-                  {complete && <FaCheckCircle className="text-xl mr-3 text-green-600" />}
                </div>
             ))}
          </div>
 
          <div className="mt-4">
             <h1 className="text-lg font-bold my-3">Video Data:</h1>
-            <div className="flex flex-wrap justify-center items-center">
+            <div className="flex justify-start items-center gap-1">
                <DataCard name="Watch Time" value={formatMinutes(totalWatchTime)} />
                <DataCard name="Play/Pause Count" value={totalPlayPauseClicks} />
+               <DataCard name="Watch Complete" value={`${complete}`} />
             </div>
             <h1 className="text-lg font-bold my-3">Play/Pause History:</h1>
-            <ul className="grid grid-cols-2">
+            <ul className="grid grid-cols-2 gap-1">
                {playPauseHistory.map((entry, index) => (
                   <DataCard
                      key={index}
