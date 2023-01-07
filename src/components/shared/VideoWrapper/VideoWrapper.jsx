@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import { BiFullscreen } from "react-icons/bi";
 import { FaBackward, FaForward, FaPause, FaPlay } from "react-icons/fa";
 import { HiVolumeUp, HiVolumeOff } from "react-icons/hi";
 import { MdPictureInPictureAlt } from "react-icons/md";
@@ -74,23 +73,23 @@ const VideoWrapper = ({ videoRef }) => {
             <img src={watermark} alt="" className="w-[80px]" />
          </div>
          <div>
-            <div className="video-timeline">
-               <div className="progress-area">
-                  <div className="progress-bar">
-                     <input
-                        type="range"
-                        min={0}
-                        max={videoLength}
-                        value={currentTime}
-                        step="any"
-                        onChange={handleTimelineChange}
-                        className="w-full"
-                     />
-                  </div>
-               </div>
+            {/* this is div is for video progress bar */}
+            <div className="progress-bar">
+               <input
+                  type="range"
+                  min={0}
+                  max={videoLength}
+                  value={currentTime}
+                  step="any"
+                  onChange={handleTimelineChange}
+                  className="w-full"
+               />
             </div>
+
+            {/* inside ul i created controls of the video */}
             <ul className="video-controls flex items-center justify-between w-full">
                <li className="options-left w-[25%] flex items-center justify-start gap-2">
+                  {/* This is for volume up and down */}
                   <ControlButton handleFunction={() => setMuted(!muted)}>
                      {muted ? (
                         <HiVolumeOff className={iconClass} />
@@ -107,6 +106,7 @@ const VideoWrapper = ({ videoRef }) => {
                      onChange={handleVolumeChange}
                      className="w-[40%] hidden md:block"
                   />
+                  {/* this if for display the timer of the video */}
                   <div className="video-timer">
                      <p className="text-white">
                         {formatMinutes(currentTime)}/{formatMinutes(videoLength)}
@@ -115,9 +115,11 @@ const VideoWrapper = ({ videoRef }) => {
                </li>
                <li className="options-center w-[50%] flex justify-center">
                   <div className="flex items-center gap-4">
+                     {/* this is for backward button */}
                      <ControlButton handleFunction={handleBackward}>
                         <FaBackward className={iconClass} />
                      </ControlButton>
+                     {/* play/pause button */}
                      <ControlButton handleFunction={handlePlayPause}>
                         {isPlaying ? (
                            <FaPause className={iconClass} />
@@ -125,17 +127,16 @@ const VideoWrapper = ({ videoRef }) => {
                            <FaPlay className={iconClass} />
                         )}
                      </ControlButton>
+                     {/* forward button */}
                      <ControlButton handleFunction={handleForward}>
                         <FaForward className={iconClass} />
                      </ControlButton>
                   </div>
                </li>
                <li className="options-right w-[25%] flex justify-end gap-2">
+                  {/* picture in picture mode */}
                   <ControlButton handleFunction={() => videoRef.current.requestPictureInPicture()}>
                      <MdPictureInPictureAlt className={iconClass} />
-                  </ControlButton>
-                  <ControlButton handleFunction={handlePlayPause}>
-                     <BiFullscreen className={iconClass} />
                   </ControlButton>
                </li>
             </ul>

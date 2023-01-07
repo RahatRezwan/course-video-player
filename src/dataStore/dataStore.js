@@ -1,3 +1,6 @@
+/* This is store is created for store the data in the local storage */
+
+/* This function is for get the previously stored data */
 const getStoredData = () => {
    let storedData = {};
    const storedDataObj = localStorage.getItem("videoData");
@@ -8,6 +11,7 @@ const getStoredData = () => {
    return storedData;
 };
 
+/* This is for add or update new data */
 const addToLocalStorage = (id, data) => {
    let storedVideoData = getStoredData();
    /* get previous data */

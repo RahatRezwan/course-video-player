@@ -14,6 +14,7 @@ const Sidebar = () => {
       setPlayPauseHistory,
       setComplete,
       complete,
+      videoLength,
       totalWatchTime,
       totalPlayPauseClicks,
       playPauseHistory,
@@ -24,6 +25,7 @@ const Sidebar = () => {
    }, []);
 
    const handleSetCurrentVideo = (data, id) => {
+      /* when a video is clicked then, I get the stored data and updated state for that particular video */
       const storedData = getStoredData();
       const currentVideoData = storedData[id];
       if (currentVideoData && currentVideoData.id === id) {
@@ -39,6 +41,7 @@ const Sidebar = () => {
          setPlayPauseHistory([]);
          setComplete(false);
       }
+      /* set current video to display in video player */
       setCurrentVideo(data);
    };
 
@@ -60,10 +63,14 @@ const Sidebar = () => {
             ))}
          </div>
 
+         {/* now display all video data at the sidebar */}
+
          <div className="mt-4">
             <h1 className="text-lg font-bold my-3">Video Data:</h1>
-            <div className="flex justify-start items-center gap-1">
+            <div className="grid grid-cols-2 items-center gap-1">
                <DataCard name="Watch Time" value={formatMinutes(totalWatchTime)} />
+               {/* I don't store the video length in the storage but I just show it after a video is loaded */}
+               <DataCard name="Video Length" value={formatMinutes(videoLength)} />
                <DataCard name="Play/Pause Count" value={totalPlayPauseClicks} />
                <DataCard name="Watch Complete" value={`${complete}`} />
             </div>

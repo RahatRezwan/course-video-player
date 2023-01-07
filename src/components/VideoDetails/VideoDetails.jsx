@@ -8,6 +8,7 @@ const VideoDetails = () => {
    const { video_url, title, description } = currentVideo;
 
    return (
+      /* here I get the selected video data and pass the url to the video player as props */
       <div>
          <VideoPlayer url={video_url} />
          <h1 className="text-3xl font-bold my-4">{title}</h1>

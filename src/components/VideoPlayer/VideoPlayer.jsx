@@ -55,7 +55,7 @@ const VideoPlayer = () => {
       if (id) {
          addToLocalStorage(id, data);
       }
-   }, [id, totalWatchTime, totalPlayPauseClicks, playPauseHistory, complete]);
+   }, [id, videoLength, totalWatchTime, totalPlayPauseClicks, playPauseHistory, complete]);
 
    return (
       <div className="w-full rounded-md overflow-hidden relative">
