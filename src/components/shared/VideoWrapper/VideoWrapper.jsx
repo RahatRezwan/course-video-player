@@ -22,6 +22,8 @@ const VideoWrapper = ({ videoRef }) => {
       muted,
       setMuted,
       currentVideo,
+      count,
+      setCount,
    } = useContext(VideoDataContext);
 
    const { watermark } = currentVideo;
@@ -31,13 +33,20 @@ const VideoWrapper = ({ videoRef }) => {
       setTotalPlayPauseClicks(totalPlayPauseClicks + 1);
 
       // Add the current time to the play/pause history
-      setPlayPauseHistory([
-         ...playPauseHistory,
-         {
-            count: totalPlayPauseClicks + 1,
-            time: currentTime,
-         },
-      ]);
+      if (
+         !playPauseHistory.find(
+            (history) => formatMinutes(history.time) === formatMinutes(currentTime),
+         )
+      ) {
+         setPlayPauseHistory([
+            ...playPauseHistory,
+            {
+               count: count,
+               time: currentTime,
+            },
+         ]);
+         setCount(count + 1);
+      }
 
       // Toggle play/pause on the video
       if (videoRef.current.paused) {
