@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useRef } from "react";
 import { VideoDataContext } from "../../Contexts/VideoDataProvider/VideoDataProvider";
+import { addToLocalStorage } from "../../dataStore/dataStore";
 import VideoWrapper from "../shared/VideoWrapper/VideoWrapper";
 
 const VideoPlayer = () => {
@@ -13,8 +14,12 @@ const VideoPlayer = () => {
       setComplete,
       muted,
       currentVideo,
+      totalWatchTime,
+      totalPlayPauseClicks,
+      playPauseHistory,
+      complete,
    } = useContext(VideoDataContext);
-   const { video_url, thumbnail } = currentVideo;
+   const { id, video_url, thumbnail } = currentVideo;
 
    const videoRef = useRef(null);
 
@@ -34,6 +39,22 @@ const VideoPlayer = () => {
       }
    }, [currentTime, videoLength, setComplete]);
 
+   useEffect(() => {
+      // Create an object with the relevant data
+      const data = {
+         id,
+         totalWatchTime,
+         totalPlayPauseClicks,
+         playPauseHistory,
+         complete,
+      };
+
+      // Save the object to local storage using the video ID as the key
+      if (id) {
+         addToLocalStorage(id, data);
+      }
+   }, [id, totalWatchTime, totalPlayPauseClicks, playPauseHistory, complete]);
+
    return (
       <div className="w-full bg-gray-500 rounded-md overflow-hidden relative">
          {/* Wrapper */}
@@ -45,6 +66,7 @@ const VideoPlayer = () => {
             muted={muted}
             className="w-full"
             src={video_url}
+            onLoadedMetadata={() => (videoRef.current.currentTime = totalWatchTime)}
             poster={thumbnail}
             onPlay={() => setIsPlaying(true)}
             onPause={() => setIsPlaying(false)}

@@ -1,39 +1,17 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { VideoDataContext } from "../../Contexts/VideoDataProvider/VideoDataProvider";
 import VideoPlayer from "../VideoPlayer/VideoPlayer";
 
 const VideoDetails = () => {
-   const {
-      currentVideo,
-      totalWatchTime,
-      totalPlayPauseClicks,
-      playPauseHistory,
-      complete,
-      setTotalWatchTime,
-      setTotalPlayPauseClicks,
-      setPlayPauseHistory,
-      setComplete,
-   } = useContext(VideoDataContext);
+   const { currentVideo } = useContext(VideoDataContext);
 
-   const { id, video_url, title, description } = currentVideo;
+   const { video_url, title, description } = currentVideo;
 
-   useEffect(() => {
-      // Create an object with the relevant data
-      const data = {
-         totalWatchTime,
-         totalPlayPauseClicks,
-         playPauseHistory,
-         complete,
-      };
-
-      // Save the object to local storage using the video ID as the key
-      if (id) {
-         localStorage.setItem(`videoData-${id}`, JSON.stringify(data));
-      }
-   }, [id, totalWatchTime, totalPlayPauseClicks, playPauseHistory, complete]);
    return (
       <div>
          <VideoPlayer url={video_url} />
+         <h1 className="text-3xl font-bold my-4">{title}</h1>
+         <p className="text-md">{description}</p>
       </div>
    );
 };
