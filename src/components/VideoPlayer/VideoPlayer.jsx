@@ -25,12 +25,14 @@ const VideoPlayer = () => {
 
    /* Update current time on each second */
    useEffect(() => {
-      const updateCurrentTime = () => {
-         setCurrentTime(videoRef.current.currentTime);
-      };
-      const interval = setInterval(updateCurrentTime, 1000);
-      return () => clearInterval(interval);
-   }, [setCurrentTime]);
+      if (id) {
+         const updateCurrentTime = () => {
+            setCurrentTime(videoRef.current.currentTime);
+         };
+         const interval = setInterval(updateCurrentTime, 1000);
+         return () => clearInterval(interval);
+      }
+   }, [setCurrentTime, id]);
 
    /* set video watch is complete if watch upto 80% */
    useEffect(() => {
@@ -56,24 +58,32 @@ const VideoPlayer = () => {
    }, [id, totalWatchTime, totalPlayPauseClicks, playPauseHistory, complete]);
 
    return (
-      <div className="w-full bg-gray-500 rounded-md overflow-hidden relative">
-         {/* Wrapper */}
-         <VideoWrapper videoRef={videoRef} />
+      <div className="w-full rounded-md overflow-hidden relative">
+         {!id ? (
+            <div className="w-full h-[300px] flex justify-center items-center">
+               <h1 className="text-3xl">Please select a video</h1>
+            </div>
+         ) : (
+            <>
+               {/* Wrapper */}
+               <VideoWrapper videoRef={videoRef} />
 
-         {/* video player */}
-         <video
-            ref={videoRef}
-            muted={muted}
-            className="w-full"
-            src={video_url}
-            onLoadedMetadata={() => (videoRef.current.currentTime = totalWatchTime)}
-            poster={thumbnail}
-            onPlay={() => setIsPlaying(true)}
-            onPause={() => setIsPlaying(false)}
-            onDurationChange={() => setVideoLength(videoRef.current.duration)}
-            onTimeUpdate={() => setTotalWatchTime(videoRef.current.currentTime)}
-            onSeeked={() => setCurrentTime(videoRef.current.currentTime)}
-         />
+               {/* video player */}
+               <video
+                  ref={videoRef}
+                  muted={muted}
+                  className="w-full"
+                  src={video_url}
+                  onLoadedMetadata={() => (videoRef.current.currentTime = totalWatchTime)}
+                  poster={thumbnail}
+                  onPlay={() => setIsPlaying(true)}
+                  onPause={() => setIsPlaying(false)}
+                  onDurationChange={() => setVideoLength(videoRef.current.duration)}
+                  onTimeUpdate={() => setTotalWatchTime(videoRef.current.currentTime)}
+                  onSeeked={() => setCurrentTime(videoRef.current.currentTime)}
+               />
+            </>
+         )}
       </div>
    );
 };
