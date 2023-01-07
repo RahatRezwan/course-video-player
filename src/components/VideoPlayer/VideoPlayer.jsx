@@ -79,7 +79,10 @@ const VideoPlayer = () => {
                   onPlay={() => setIsPlaying(true)}
                   onPause={() => setIsPlaying(false)}
                   onDurationChange={() => setVideoLength(videoRef.current.duration)}
-                  onTimeUpdate={() => setTotalWatchTime(videoRef.current.currentTime)}
+                  onTimeUpdate={() =>
+                     videoRef.current.currentTime >= totalWatchTime &&
+                     setTotalWatchTime(videoRef.current.currentTime)
+                  }
                   onSeeked={() => setCurrentTime(videoRef.current.currentTime)}
                />
             </>
